@@ -1,0 +1,116 @@
+{
+  "client": {
+    "enable_governance": false,
+    "drop_excess_requests": false
+  },
+  "config_store": {
+    "enabled": true,
+    "type": "sqlite",
+    "config": {
+      "path": "./bifrost/config.db"
+    }
+  },
+  "providers": {
+    "openai": {
+      "keys": [
+        {
+          "value": "env.OPENAI_API_KEY_1",
+          "models": [],
+          "weight": 0.2
+        },
+        {
+          "value": "env.OPENAI_API_KEY_2",
+          "models": [],
+          "weight": 0.2
+        },
+        {
+          "value": "env.OPENAI_API_KEY_3",
+          "models": [],
+          "weight": 0.2
+        },
+        {
+          "value": "env.OPENAI_API_KEY_4",
+          "models": [],
+          "weight": 0.2
+        },
+        {
+          "value": "env.OPENAI_API_KEY_5",
+          "models": [],
+          "weight": 0.2
+        }
+      ]
+    },
+    "openrouter": {
+      "keys": [
+        {
+          "value": "env.OPENROUTER_API_KEY",
+          "models": [],
+          "weight": 1.0
+        }
+      ],
+      "network_config": {
+        "base_url": "https://openrouter.ai/api"
+      }
+    },
+    "deepseek": {
+      "keys": [
+        {
+          "value": "env.DEEPSEEK_API_KEY",
+          "models": [],
+          "weight": 1.0
+        }
+      ],
+      "network_config": {
+        "base_url": "https://api.deepseek.com"
+      },
+      "custom_provider_config": {
+        "base_provider_type": "openai"
+      }
+    },
+    "gemini": {
+      "keys": [
+        {
+          "value": "env.GEMINI_API_KEY",
+          "models": [],
+          "weight": 1.0
+        }
+      ]
+    },
+    "anthropic": {
+      "keys": [
+        {
+          "value": "env.ANTHROPIC_API_KEY",
+          "models": [],
+          "weight": 1.0
+        }
+      ]
+    },
+    "ollama": {
+      "keys": [
+        {
+          "value": "env.OLLAMA_API_KEY",
+          "models": [],
+          "weight": 1.0
+        }
+      ],
+      "network_config": {
+        "base_url": "env.OLLAMA_BASE_URL"
+      }
+    },
+    "llamacpp": {
+      "keys": [
+        {
+          "value": "env.LLAMACPP_API_KEY",
+          "models": [],
+          "weight": 1.0
+        }
+      ],
+      "network_config": {
+        "base_url": "env.LLAMACPP_BASE_URL"
+      },
+      "custom_provider_config": {
+        "base_provider_type": "openai"
+      }
+    }
+  }
+}
