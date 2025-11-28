@@ -2,47 +2,75 @@ import OpenAI from "openai";
 
 // LLMプロバイダーの設定を配列で定義
 const llmProviders = [
+  // {
+  //   name: "Bifrost OpenAI gpt-4o-mini (tool_call enabled)",
+  //   apiKey: process.env.OPENAI_API_KEY_2,
+  //   baseUrl: "http://0.0.0.0:7766/v1", // Bifrost
+  //   model: "openai/gpt-4o-mini",
+  //   enableToolCall: true, // ツール呼び出しを有効化
+  // },
+  // {
+  //   name: "Bifrost OpenAI gpt-4o-mini (tool_call disabled)",
+  //   apiKey: process.env.OPENAI_API_KEY_2,
+  //   baseUrl: "http://0.0.0.0:7766/v1", // Bifrost
+  //   model: "openai/gpt-4o-mini",
+  //   enableToolCall: false, // ツール呼び出しを無効化
+  // },
+  // {
+  //   name: "TCGW OpenAI gpt-4o-mini (tool_call enabled)",
+  //   apiKey: process.env.OPENAI_API_KEY_2,
+  //   baseUrl: "http://0.0.0.0:3001/v1", // TCGW
+  //   model: "openai/gpt-4o-mini",
+  //   enableToolCall: true, // ツール呼び出しを有効化
+  // },
+  // {
+  //   name: "TCGW OpenAI gpt-4o-mini (tool_call disabled)",
+  //   apiKey: process.env.OPENAI_API_KEY_2,
+  //   baseUrl: "http://0.0.0.0:3001/v1", // TCGW
+  //   model: "openai/gpt-4o-mini",
+  //   enableToolCall: false, // ツール呼び出しを無効化
+  // },
+  // {
+  //   name: "TCGW OpenAI gpt-4o-mini (tool_call enabled)",
+  //   apiKey: process.env.OPENAI_API_KEY_2,
+  //   baseUrl: "http://0.0.0.0:3000/v1", // TCGW
+  //   model: "openai/gpt-4o-mini",
+  //   enableToolCall: true, // ツール呼び出しを有効化
+  // },
+  // {
+  //   name: "TCGW OpenAI gpt-4o-mini (tool_call disabled)",
+  //   apiKey: process.env.OPENAI_API_KEY_2,
+  //   baseUrl: "http://0.0.0.0:3000/v1", // TCGW
+  //   model: "openai/gpt-4o-mini",
+  //   enableToolCall: false, // ツール呼び出しを無効化
+  // },
+  // {
+  //   name: "TCGW openai/gpt-oss-120b Native",
+  //   apiKey: process.env.OPENAI_API_KEY_2,
+  //   baseUrl: "http://0.0.0.0:3000/v1", // TCGW-Native
+  //   model: "openrouter/openai/gpt-oss-120b",
+  //   enableToolCall: true,
+  // },
+  // {
+  //   name: "Bifrost openai/gpt-oss-20b",
+  //   apiKey: process.env.OPENAI_API_KEY_2,
+  //   baseUrl: "http://0.0.0.0:7766/v1",
+  //   model: "openrouter/openai/gpt-oss-20b:free",
+  //   enableToolCall: true,
+  // },
+  // {
+  //   name: "TCGW openai/gpt-oss-20b",
+  //   apiKey: process.env.OPENAI_API_KEY_2,
+  //   baseUrl: "http://0.0.0.0:3000/v1",
+  //   model: "openrouter/openai/gpt-oss-20b:free",
+  //   enableToolCall: true,
+  // },
   {
-    name: "Bifrost OpenAI gpt-4o-mini (tool_call enabled)",
+    name: "TCGW openai/gpt-oss-20b:free",
     apiKey: process.env.OPENAI_API_KEY_2,
-    baseUrl: "http://0.0.0.0:7766/v1", // Bifrost
-    model: "openai/gpt-4o-mini",
-    enableToolCall: true, // ツール呼び出しを有効化
-  },
-  {
-    name: "Bifrost OpenAI gpt-4o-mini (tool_call disabled)",
-    apiKey: process.env.OPENAI_API_KEY_2,
-    baseUrl: "http://0.0.0.0:7766/v1", // Bifrost
-    model: "openai/gpt-4o-mini",
-    enableToolCall: false, // ツール呼び出しを無効化
-  },
-  {
-    name: "TCGW OpenAI gpt-4o-mini (tool_call enabled)",
-    apiKey: process.env.OPENAI_API_KEY_2,
-    baseUrl: "http://0.0.0.0:3001/v1", // TCGW
-    model: "openai/gpt-4o-mini",
-    enableToolCall: true, // ツール呼び出しを有効化
-  },
-  {
-    name: "TCGW OpenAI gpt-4o-mini (tool_call disabled)",
-    apiKey: process.env.OPENAI_API_KEY_2,
-    baseUrl: "http://0.0.0.0:3001/v1", // TCGW
-    model: "openai/gpt-4o-mini",
-    enableToolCall: false, // ツール呼び出しを無効化
-  },
-  {
-    name: "TCGW OpenAI gpt-4o-mini (tool_call enabled)",
-    apiKey: process.env.OPENAI_API_KEY_2,
-    baseUrl: "http://0.0.0.0:3000/v1", // TCGW
-    model: "openai/gpt-4o-mini",
-    enableToolCall: true, // ツール呼び出しを有効化
-  },
-  {
-    name: "TCGW OpenAI gpt-4o-mini (tool_call disabled)",
-    apiKey: process.env.OPENAI_API_KEY_2,
-    baseUrl: "http://0.0.0.0:3000/v1", // TCGW
-    model: "openai/gpt-4o-mini",
-    enableToolCall: false, // ツール呼び出しを無効化
+    baseUrl: "http://0.0.0.0:3000/v1",
+    model: "openrouter/openai/gpt-oss-20b:free",
+    enableToolCall: true,
   },
 ];
 
@@ -211,6 +239,9 @@ async function agent(providerConfig, userInput) {
       const response = await openai.chat.completions.create(requestParams);
 
       const { finish_reason, message } = response.choices[0];
+
+      // console.log(message)
+
       console.log(`  [Response] Finish Reason: ${finish_reason}`);
 
       if (finish_reason === "tool_calls" && message.tool_calls) {
@@ -320,5 +351,5 @@ async function runAllProviders(userInput) {
 }
 
 // 実行例
-const userInput = "データベースで商品Cを検索して、その価格を3個分計算し、結果を通知してください";
+const userInput = "データベースで商品Cを検索して、その価格を3個分計算し、ユーザーに通知メッセージを送信した後、私に計算結果を教えて下さい。";
 const results = await runAllProviders(userInput);
