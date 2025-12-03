@@ -2,13 +2,13 @@ import OpenAI from "openai";
 
 // LLMプロバイダーの設定を配列で定義
 const llmProviders = [
-  {
-    name: "Bifrost OpenAI gpt-4o-mini (tool_call enabled)",
-    apiKey: process.env.OPENAI_API_KEY_2,
-    baseUrl: "http://0.0.0.0:7766/v1", // Bifrost
-    model: "openai/gpt-4o-mini",
-    enableToolCall: true, // ツール呼び出しを有効化
-  },
+  // {
+  //   name: "Bifrost OpenAI gpt-4o-mini (tool_call enabled)",
+  //   apiKey: process.env.OPENAI_API_KEY_2,
+  //   baseUrl: "http://0.0.0.0:7766/v1", // Bifrost
+  //   model: "openai/gpt-4o-mini",
+  //   enableToolCall: true, // ツール呼び出しを有効化
+  // },
   // {
   //   name: "Bifrost OpenAI gpt-4o-mini (tool_call disabled)",
   //   apiKey: process.env.OPENAI_API_KEY_2,
@@ -16,13 +16,13 @@ const llmProviders = [
   //   model: "openai/gpt-4o-mini",
   //   enableToolCall: false, // ツール呼び出しを無効化
   // },
-  // {
-  //   name: "TCGW OpenAI gpt-4o-mini (tool_call disabled)",
-  //   apiKey: process.env.OPENAI_API_KEY_2,
-  //   baseUrl: "http://0.0.0.0:3000/v1", // Bifrost
-  //   model: "openai/gpt-4o-mini",
-  //   enableToolCall: false, // ツール呼び出しを無効化
-  // },
+  {
+    name: "TCGW OpenAI gpt-4o-mini (tool_call disabled)",
+    apiKey: process.env.OPENAI_API_KEY_2,
+    baseUrl: "http://0.0.0.0:3000/v1", // Bifrost
+    model: "openai/gpt-4o-mini",
+    enableToolCall: false, // ツール呼び出しを無効化
+  },
   //
   // {
   //   name: "TCGW OpenAI gpt-4o-mini (tool_call enabled)",
@@ -87,8 +87,8 @@ async function searchDatabase(query) {
   // 単価情報を含む商品データを返す
   const result = {
     results: [
-      { name: "商品A", unitPrice: 1000, description: "人気商品" },
-      { name: "商品B", unitPrice: 1500, description: "高品質商品" },
+      // { name: "商品A", unitPrice: 1000, description: "人気商品" },
+      // { name: "商品B", unitPrice: 1500, description: "高品質商品" },
       { name: "商品C", unitPrice: 800, description: "お買い得商品" },
     ],
   };
