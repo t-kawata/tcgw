@@ -2,13 +2,13 @@ import OpenAI from "openai";
 
 // LLMプロバイダーの設定を配列で定義
 const llmProviders = [
-  // {
-  //   name: "Bifrost OpenAI gpt-4o-mini (tool_call enabled)",
-  //   apiKey: process.env.OPENAI_API_KEY_2,
-  //   baseUrl: "http://0.0.0.0:7766/v1", // Bifrost
-  //   model: "openai/gpt-4o-mini",
-  //   enableToolCall: true, // ツール呼び出しを有効化
-  // },
+  {
+    name: "Bifrost OpenAI gpt-4o-mini (tool_call enabled)",
+    apiKey: process.env.OPENAI_API_KEY_2,
+    baseUrl: "http://0.0.0.0:7766/v1", // Bifrost
+    model: "openai/gpt-4o-mini",
+    enableToolCall: true, // ツール呼び出しを有効化
+  },
   // {
   //   name: "Bifrost OpenAI gpt-4o-mini (tool_call disabled)",
   //   apiKey: process.env.OPENAI_API_KEY_2,
@@ -16,6 +16,14 @@ const llmProviders = [
   //   model: "openai/gpt-4o-mini",
   //   enableToolCall: false, // ツール呼び出しを無効化
   // },
+  // {
+  //   name: "TCGW OpenAI gpt-4o-mini (tool_call disabled)",
+  //   apiKey: process.env.OPENAI_API_KEY_2,
+  //   baseUrl: "http://0.0.0.0:3000/v1", // Bifrost
+  //   model: "openai/gpt-4o-mini",
+  //   enableToolCall: false, // ツール呼び出しを無効化
+  // },
+  //
   // {
   //   name: "TCGW OpenAI gpt-4o-mini (tool_call enabled)",
   //   apiKey: process.env.OPENAI_API_KEY_2,
@@ -65,13 +73,6 @@ const llmProviders = [
   //   model: "openrouter/openai/gpt-oss-20b:free",
   //   enableToolCall: true,
   // },
-  {
-    name: "TCGW openai/gpt-oss-20b:free",
-    apiKey: process.env.OPENAI_API_KEY_2,
-    baseUrl: "http://0.0.0.0:3000/v1",
-    model: "openrouter/openai/gpt-oss-20b:free",
-    enableToolCall: true,
-  },
 ];
 
 // Sleep関数
@@ -81,8 +82,8 @@ function sleep(ms) {
 
 // 3つのツール関数を定義
 async function searchDatabase(query) {
-  console.log(`\n    🟢 [Tool Execution] searchDatabase`);
-  console.log(`           └─ Query: "${query}"`);
+  console.log(`\n    🟢 [TOOL] searchDatabase というツールを使って商品をデータベースから検索する`);
+  console.log(`           └─ 検索内容: "${query}"`);
   // 単価情報を含む商品データを返す
   const result = {
     results: [
@@ -91,24 +92,24 @@ async function searchDatabase(query) {
       { name: "商品C", unitPrice: 800, description: "お買い得商品" },
     ],
   };
-  console.log(`           └─ Result: ${JSON.stringify(result)}`);
+  console.log(`           └─ 検索結果: ${JSON.stringify(result)}`);
   return result;
 }
 
 async function calculatePrice(quantity, unitPrice) {
-  console.log(`\n    🟢 [Tool Execution] calculatePrice`);
-  console.log(`           ├─ Quantity: ${quantity}`);
-  console.log(`           ├─ Unit Price: ${unitPrice}`);
+  console.log(`\n    🟢 [TOOL] calculatePrice というツールを使って金額の計算を行う`);
+  console.log(`           ├─ 数量: ${quantity}`);
+  console.log(`           ├─ 単価: ${unitPrice}`);
   const result = { total: quantity * unitPrice, currency: "JPY" };
-  console.log(`           └─ Result: ${JSON.stringify(result)}`);
+  console.log(`           └─ 計算結果: ${JSON.stringify(result)}`);
   return result;
 }
 
 async function sendNotification(message) {
-  console.log(`\n    🟢 [Tool Execution] sendNotification`);
-  console.log(`           └─ Message: "${message}"`);
+  console.log(`\n    🟢 [TOOL] sendNotification というツールを使って完了通知を送る`);
+  console.log(`           └─ 通知するメッセージ内容: "${message}"`);
   const result = { status: "sent", timestamp: new Date().toISOString() };
-  console.log(`           └─ Result: ${JSON.stringify(result)}`);
+  console.log(`           └─ 通知結果: ${JSON.stringify(result)}`);
   return result;
 }
 
